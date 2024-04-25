@@ -19,7 +19,8 @@ func main() {
 	// This worker hosts both Workflow and Activity functions
 	w := worker.New(c, app.DeviceMessagesQueue, worker.Options{})
 	w.RegisterWorkflow(app.IngestWorkflow)
-	//w.RegisterActivity(app.ComposeGreeting)
+	w.RegisterActivity(app.PersistTelemetry)
+	w.RegisterActivity(app.PersistErrors)
 
 	// Start listening to the Task Queue
 	err = w.Run(worker.InterruptCh())
