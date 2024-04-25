@@ -2,10 +2,18 @@ package iot_telemetry
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
+	"iot-telemetry/types"
 )
 
-func ComposeGreeting(ctx context.Context, name string) (string, error) {
-	greeting := fmt.Sprintf("Hello %s!", name)
-	return greeting, nil
+func Parse(ctx context.Context, raw string) (*types.Message, error) {
+	var message types.Message
+
+	// Parse the raw message into the message struct
+	err := json.Unmarshal([]byte(raw), &message)
+	if err != nil {
+		return nil, err
+	}
+
+	return &message, nil
 }

@@ -13,3 +13,9 @@
         1. Parse and validate
         2. Store in database
         3. Healthcheck with aggregated errors per asset
+
+## Running the workflow
+
+```bash
+go run start/main.go "$(<resources/sample-message.json)"
+```
