@@ -7,17 +7,15 @@ type Input struct {
 }
 
 type Output struct {
+	AverageTelemetry float64 `json:"average_telemetry"`
 }
 
 type Message struct {
-	Telemetry []Telemetry `json:"telemetry"`
-	Errors    []Error     `json:"errors"`
+	Telemetry Telemetry `json:"telemetry"`
+	Errors    []Error   `json:"errors"`
 }
 
-type Telemetry struct {
-	Key   string `json:"key"`
-	Value string `json:"value"`
-}
+type Telemetry = float64
 
 type Error struct {
 	Code    int    `json:"code"`

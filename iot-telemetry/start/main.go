@@ -24,18 +24,18 @@ func main() {
 	defer c.Close()
 
 	options := client.StartWorkflowOptions{
-		ID:        "ingest-workflow",
+		//ID:        "ingest-workflow",
 		TaskQueue: app.DeviceMessagesQueue,
 	}
 
 	input := types.Input{
-		DeviceID:    "abc",
+		DeviceID:    "123",
 		ReceiveTime: "2021-01-01T00:00:00Z",
 		Content:     args[0],
 	}
 
 	// Start the Workflow
-	we, err := c.ExecuteWorkflow(context.Background(), options, app.IngestWorkflow, input)
+	we, err := c.SignalWithStartWorkflow(context.Background(), input.DeviceID, "message-signal", input, options, app.IngestWorkflow)
 	if err != nil {
 		log.Fatalln("unable to complete Workflow", err)
 	}

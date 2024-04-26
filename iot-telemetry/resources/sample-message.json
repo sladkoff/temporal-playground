@@ -1,14 +1,9 @@
 {
-  "telemetry": [
-	{
-	  "key": "telemetry",
-	  "value": "42"
-	}
-  ],
+  "telemetry": 12,
   "error": [
-	{
-	  "code": "err01",
-	  "message": "it's broken"
-	}
+    {
+      "code": "err01",
+      "message": "it's broken"
+    }
   ]
 }
