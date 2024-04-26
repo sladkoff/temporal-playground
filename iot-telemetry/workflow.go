@@ -49,12 +49,14 @@ func IngestWorkflow(ctx workflow.Context) (*types.Output, error) {
 		telemetry := message.Telemetry
 		errors := message.Errors
 
-		err = workflow.ExecuteActivity(ctx, PersistTelemetry, telemetry).Get(ctx, nil)
+		persistTelemetry := workflow.ExecuteActivity(ctx, PersistTelemetry, telemetry)
+
+		err = workflow.ExecuteActivity(ctx, PersistErrors, errors).Get(ctx, nil)
 		if err != nil {
 			return nil, err
 		}
 
-		err = workflow.ExecuteActivity(ctx, PersistErrors, errors).Get(ctx, nil)
+		err = persistTelemetry.Get(ctx, nil)
 		if err != nil {
 			return nil, err
 		}
